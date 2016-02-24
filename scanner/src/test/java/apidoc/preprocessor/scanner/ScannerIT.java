@@ -15,14 +15,12 @@ import java.util.TreeSet;
 public class ScannerIT {
 
     private static SpringScanner scanner;
-    private static Method CLASSES;
+    private static Method classes;
 
     @BeforeClass
-    public void init() throws IllegalAccessException, InstantiationException, NoSuchMethodException {
-        scanner = SpringScanner.class.newInstance();
-
-        CLASSES = Scanner.class.getDeclaredMethod("classes", String[].class);
-        CLASSES.setAccessible(true);
+    public void init() throws NoSuchMethodException {
+        classes = Scanner.class.getDeclaredMethod("classes", String[].class);
+        classes.setAccessible(true);
     }
 
     @DataProvider(name = "classes")
@@ -103,8 +101,10 @@ public class ScannerIT {
     }
 
     @Test(dataProvider = "classes")
-    public void classes(String[] basePackages, Set<String> expected) throws IOException, InvocationTargetException, IllegalAccessException {
-        Set<Class<?>> classes = (Set<Class<?>>) CLASSES.invoke(scanner, (Object) basePackages);
+    public void classes(String[] basePackages, Set<String> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        scanner = new SpringScanner();
+        ScannerIT.classes.invoke(scanner, (Object) basePackages);
+        Set<Class<?>> classes = scanner.classes;
 
         Assert.assertNotNull(classes);
         Assert.assertEquals(classes.size(), expected.size());
