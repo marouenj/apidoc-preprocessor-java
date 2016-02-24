@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class SpringScanner extends Scanner {
 
     @Override
-    protected void keepControllersOnly() {
+    protected void controllers() {
         classes = classes.stream()
                 .filter(clazz -> {
                     Controller controller = clazz.getAnnotation(Controller.class);

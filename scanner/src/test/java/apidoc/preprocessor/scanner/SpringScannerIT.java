@@ -20,12 +20,12 @@ public class SpringScannerIT {
         classes = Scanner.class.getDeclaredMethod("classes", String[].class);
         classes.setAccessible(true);
 
-        keepControllersOnly = SpringScanner.class.getDeclaredMethod("keepControllersOnly");
+        keepControllersOnly = SpringScanner.class.getDeclaredMethod("controllers");
         keepControllersOnly.setAccessible(true);
     }
 
-    @DataProvider(name = "keepControllersOnly")
-    public Object[][] keepControllersOnly() {
+    @DataProvider(name = "controllers")
+    public Object[][] controllers() {
         return new Object[][]{
                 {
                         new String[]{"apidoc.preprocessor.scanner.sample_a"},
@@ -46,11 +46,19 @@ public class SpringScannerIT {
                             add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
                         }}
                 },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_b",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_b.Controller6");
+                        }}
+                },
         };
     }
 
-    @Test(dataProvider = "keepControllersOnly")
-    public void keepControllersOnly(String[] basePackages, Set<String> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    @Test(dataProvider = "controllers")
+    public void controllers(String[] basePackages, Set<String> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         SpringScanner scanner = new SpringScanner();
 
         classes.invoke(scanner, (Object) basePackages);
