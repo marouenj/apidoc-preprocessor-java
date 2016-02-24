@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public abstract class Scanner {
 
     protected Set<Class<?>> classes = new TreeSet<>((a, b) -> a.toString().compareTo(b.toString()));
-    protected final Set<Endpoint> endpoints = new TreeSet<>(); // TODO add comparator
+    protected final Set<Endpoint> ENDPOINTS = new TreeSet<>(); // TODO add comparator
 
     private final static String DOT_CLASS = ".class";
 
@@ -32,7 +32,7 @@ public abstract class Scanner {
         controllers();
         controller();
 
-        return endpoints;
+        return ENDPOINTS;
     }
 
     private void classes(String[] basePackages) {
