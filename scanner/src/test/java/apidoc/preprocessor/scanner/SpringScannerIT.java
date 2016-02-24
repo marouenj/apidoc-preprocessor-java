@@ -13,15 +13,15 @@ import java.util.TreeSet;
 public class SpringScannerIT {
 
     private static Method classes;
-    private static Method keepControllersOnly;
+    private static Method controllers;
 
     @BeforeClass
     public void init() throws NoSuchMethodException {
         classes = Scanner.class.getDeclaredMethod("classes", String[].class);
         classes.setAccessible(true);
 
-        keepControllersOnly = SpringScanner.class.getDeclaredMethod("controllers");
-        keepControllersOnly.setAccessible(true);
+        controllers = SpringScanner.class.getDeclaredMethod("controllers");
+        controllers.setAccessible(true);
     }
 
     @DataProvider(name = "controllers")
@@ -62,7 +62,7 @@ public class SpringScannerIT {
         SpringScanner scanner = new SpringScanner();
 
         classes.invoke(scanner, (Object) basePackages);
-        keepControllersOnly.invoke(scanner);
+        controllers.invoke(scanner);
         Set<Class<?>> classes = scanner.classes;
 
         Assert.assertNotNull(classes);
