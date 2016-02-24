@@ -139,6 +139,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>apidoc/preprocessor/scanner/ScannerIT.class</exclude>
+                                <exclude>apidoc/preprocessor/scanner/ScannerIT$*.class</exclude>
                                 <exclude>apidoc/preprocessor/scanner/ScannerTest.class</exclude>
                             </excludes>
                         </configuration>
@@ -158,7 +159,9 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/scanner/sample"
+                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/scanner/sample_a"
+                                        includeemptydirs="true"/>
+                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/scanner/sample_b"
                                         includeemptydirs="true"/>
                             </target>
                         </configuration>

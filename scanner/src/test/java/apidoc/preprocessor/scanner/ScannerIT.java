@@ -15,11 +15,74 @@ public class ScannerIT {
     public Object[][] classes() {
         return new Object[][]{
                 {
-                        new String[]{"apidoc.preprocessor.scanner.sample"},
+                        new String[]{"apidoc.preprocessor.scanner.sample_a"},
                         new TreeSet<String>() {{
-                            add("class apidoc.preprocessor.scanner.sample.ControllerA");
-                            add("class apidoc.preprocessor.scanner.sample.ControllerB");
-                            add("class apidoc.preprocessor.scanner.sample.ControllerC");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller1");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller2");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller3");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
+                        }}
+                },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_a",
+                                "apidoc.preprocessor.scanner.sample_a.sample2",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller1");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller2");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller3");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
+                        }}
+                },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_a",
+                                "apidoc.preprocessor.scanner.sample_a.sample2",
+                                "apidoc.preprocessor.scanner.sample_a.sample2.sample3",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller1");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller2");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller3");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
+                        }}
+                },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_a",
+                                "apidoc.preprocessor.scanner.sample_a.sample2.sample3",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller1");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller2");
+                            add("class apidoc.preprocessor.scanner.sample_a.Controller3");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
+                        }}
+                },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_a.sample2",
+                                "apidoc.preprocessor.scanner.sample_a.sample2.sample3",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
+                        }}
+                },
+                {
+                        new String[]{
+                                "apidoc.preprocessor.scanner.sample_b",
+                                "apidoc.preprocessor.scanner.sample_a.sample2",
+                        },
+                        new TreeSet<String>() {{
+                            add("class apidoc.preprocessor.scanner.sample_b.Controller6");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
+                            add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
                         }}
                 },
         };
