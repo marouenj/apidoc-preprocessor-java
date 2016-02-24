@@ -6,11 +6,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>marouenj.apidoc.preprocessor</groupId>
-    <artifactId>entrypoint-spring</artifactId>
+    <artifactId>scanner</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>entrypoint-spring</name>
+    <name>scanner</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -56,7 +56,7 @@
     </dependencies>
 
     <build>
-        <finalName>entrypoint-spring-${project.version}</finalName>
+        <finalName>scanner-${project.version}</finalName>
         <plugins>
             <!-- initialize -->
             <plugin>
