@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 public abstract class Scanner {
 
+    protected Set<Class<?>> classes = new TreeSet<>((a, b) -> a.toString().compareTo(b.toString()));
+    protected final Set<Endpoint> endpoints = new TreeSet<>(); // TODO add comparator
+
     private final static String DOT_CLASS = ".class";
 
     private final static ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
@@ -24,11 +27,14 @@ public abstract class Scanner {
     private final static Pattern PACKAGE_PATTERN = Pattern.compile("^([^.]+\\.)*[^.]+$");
     private final static Pattern RESOURCE_PATTERN = Pattern.compile("^file:(.*)!(.*)$");
 
-    public abstract Set<Endpoint> endpoints(String[] basePackages);
+    public Set<Endpoint> endpoints(String[] basePackages) {
+        classes(basePackages);
+        keepControllersOnly();
 
-    protected static Set<Class<?>> classes(String[] basePackages) {
-        Set<Class<?>> classes = new TreeSet<>((a, b) -> a.toString().compareTo(b.toString()));
+        return endpoints;
+    }
 
+    private void classes(String[] basePackages) {
         for (String basePackage : basePackages) {
             Collection<Class<?>> classesPerPackage = classesPerPackage(basePackage);
             if (classesPerPackage == null) {
@@ -37,8 +43,6 @@ public abstract class Scanner {
 
             classes.addAll(classesPerPackage);
         }
-
-        return classes;
     }
 
     private static Collection<Class<?>> classesPerPackage(String basePackage) {
@@ -101,4 +105,6 @@ public abstract class Scanner {
 
         return null;
     }
+
+    protected abstract void keepControllersOnly();
 }
