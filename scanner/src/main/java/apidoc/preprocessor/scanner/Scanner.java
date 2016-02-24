@@ -115,7 +115,7 @@ public abstract class Scanner {
 
     protected abstract String[] prefix(Class<?> controllerClass);
 
-    protected void controller(Class<?> controllerClass, String[] prefix) {
+    private void controller(Class<?> controllerClass, String[] prefix) {
         Set<Method> methods = methods(controllerClass);
         methods = endpoints(methods);
     }
