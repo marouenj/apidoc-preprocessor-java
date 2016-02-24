@@ -10,16 +10,16 @@ import java.lang.reflect.Method;
 
 public class ScannerTest {
 
-    private static Method IS_PACKAGE;
-    private static Method JAR_PATH;
+    private static Method isPackage;
+    private static Method jarPath;
 
     @BeforeClass
     public void init() throws NoSuchMethodException {
-        IS_PACKAGE = Scanner.class.getDeclaredMethod("isPackage", String.class);
-        IS_PACKAGE.setAccessible(true);
+        isPackage = Scanner.class.getDeclaredMethod("isPackage", String.class);
+        isPackage.setAccessible(true);
 
-        JAR_PATH = Scanner.class.getDeclaredMethod("jarPath", String.class);
-        JAR_PATH.setAccessible(true);
+        jarPath = Scanner.class.getDeclaredMethod("jarPath", String.class);
+        jarPath.setAccessible(true);
     }
 
     @DataProvider(name = "isPackage")
@@ -37,7 +37,7 @@ public class ScannerTest {
 
     @Test(dataProvider = "isPackage")
     public void isPackage(String expression, Boolean expected) throws InvocationTargetException, IllegalAccessException {
-        Assert.assertEquals(IS_PACKAGE.invoke(null, expression), expected);
+        Assert.assertEquals(isPackage.invoke(null, expression), expected);
     }
 
     @DataProvider(name = "jarPath")
@@ -49,7 +49,7 @@ public class ScannerTest {
 
     @Test(dataProvider = "jarPath")
     public void jarPath(String resourcePath, String expected) throws InvocationTargetException, IllegalAccessException {
-        String pathToJar = (String) JAR_PATH.invoke(null, resourcePath);
+        String pathToJar = (String) jarPath.invoke(null, resourcePath);
         Assert.assertEquals(pathToJar, expected);
     }
 }
