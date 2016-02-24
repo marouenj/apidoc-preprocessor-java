@@ -26,7 +26,7 @@ public abstract class Scanner {
 
     public abstract Set<Endpoint> endpoints(String[] basePackages);
 
-    public static Set<Class<?>> classes(String[] basePackages) {
+    protected static Set<Class<?>> classes(String[] basePackages) {
         Set<Class<?>> classes = new TreeSet<>((a, b) -> a.toString().compareTo(b.toString()));
 
         for (String basePackage : basePackages) {

@@ -1,15 +1,26 @@
 package apidoc.preprocessor.scanner;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class ScannerIT {
+
+    private static Method CLASSES;
+
+    @BeforeClass
+    public void init() throws NoSuchMethodException {
+        CLASSES = Scanner.class.getDeclaredMethod("classes", String[].class);
+        CLASSES.setAccessible(true);
+    }
 
     @DataProvider(name = "classes")
     public Object[][] classes() {
@@ -89,8 +100,8 @@ public class ScannerIT {
     }
 
     @Test(dataProvider = "classes")
-    public void classes(String[] basePackages, Set<String> expected) throws IOException {
-        Set<Class<?>> classes = Scanner.classes(basePackages);
+    public void classes(String[] basePackages, Set<String> expected) throws IOException, InvocationTargetException, IllegalAccessException {
+        Set<Class<?>> classes = (Set<Class<?>>) CLASSES.invoke(null, (Object)basePackages);
 
         Assert.assertNotNull(classes);
         Assert.assertEquals(classes.size(), expected.size());
