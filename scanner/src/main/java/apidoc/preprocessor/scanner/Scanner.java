@@ -30,7 +30,10 @@ public abstract class Scanner {
     public Set<Endpoint> endpoints(String[] basePackages) {
         classes(basePackages);
         controllers();
-        controller();
+        for (Class<?> clazz : classes) {
+            String[] prefix = prefix(clazz);
+            controller(clazz, prefix);
+        }
 
         return ENDPOINTS;
     }
@@ -109,5 +112,7 @@ public abstract class Scanner {
 
     protected abstract void controllers();
 
-    protected abstract void controller();
+    protected abstract String[] prefix(Class<?> controllerClass);
+
+    protected abstract void controller(Class<?> controllerClass, String[] prefix);
 }
