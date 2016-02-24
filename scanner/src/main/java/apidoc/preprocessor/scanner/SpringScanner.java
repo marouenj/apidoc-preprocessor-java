@@ -27,8 +27,4 @@ public class SpringScanner extends Scanner {
         }
         return requestMapping.value();
     }
-
-    @Override
-    protected void controller(Class<?> controllerClass, String[] prefix) {
-    }
 }

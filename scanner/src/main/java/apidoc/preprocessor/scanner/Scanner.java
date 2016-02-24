@@ -3,6 +3,7 @@ package apidoc.preprocessor.scanner;
 import apidoc.preprocessor.model.Endpoint;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
@@ -114,5 +115,16 @@ public abstract class Scanner {
 
     protected abstract String[] prefix(Class<?> controllerClass);
 
-    protected abstract void controller(Class<?> controllerClass, String[] prefix);
+    protected void controller(Class<?> controllerClass, String[] prefix) {
+        Set<Method> methods = methods(controllerClass);
+    }
+
+    private Set<Method> methods(Class<?> controllerClass) {
+        Set<Method> methods = new TreeSet<>((a, b) -> { return a.getName().compareTo(b.getName());});
+
+        Collections.addAll(methods, controllerClass.getMethods());
+        Collections.addAll(methods, controllerClass.getDeclaredMethods());
+
+        return methods;
+    }
 }
