@@ -102,7 +102,7 @@ public class ScannerIT {
     public void classes(String[] basePackages, Set<String> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         SpringScanner scanner = new SpringScanner();
 
-        ScannerIT.classes.invoke(scanner, (Object) basePackages);
+        classes.invoke(scanner, (Object) basePackages);
         Set<Class<?>> classes = scanner.classes;
 
         Assert.assertNotNull(classes);
