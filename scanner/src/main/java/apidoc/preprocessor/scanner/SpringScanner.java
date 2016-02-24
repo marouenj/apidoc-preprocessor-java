@@ -17,4 +17,8 @@ public class SpringScanner extends Scanner {
                 })
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    protected void controller() {
+    }
 }

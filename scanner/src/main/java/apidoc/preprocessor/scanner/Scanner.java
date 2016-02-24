@@ -30,6 +30,7 @@ public abstract class Scanner {
     public Set<Endpoint> endpoints(String[] basePackages) {
         classes(basePackages);
         controllers();
+        controller();
 
         return endpoints;
     }
@@ -107,4 +108,6 @@ public abstract class Scanner {
     }
 
     protected abstract void controllers();
+
+    protected abstract void controller();
 }
