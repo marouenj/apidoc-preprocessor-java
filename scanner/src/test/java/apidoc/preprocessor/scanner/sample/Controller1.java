@@ -1,4 +1,4 @@
 package apidoc.preprocessor.scanner.sample;
 
-public class ControllerA {
+public class Controller1 {
 }
