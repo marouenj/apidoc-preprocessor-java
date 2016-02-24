@@ -1,4 +1,4 @@
-package apidoc.preprocessor.plugin.entrypoint.spring;
+package apidoc.preprocessor.scanner;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

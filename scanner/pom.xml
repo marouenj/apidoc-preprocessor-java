@@ -138,8 +138,8 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>apidoc/preprocessor/plugin/entrypoint/spring/ScannerIT.class</exclude>
-                                <exclude>apidoc/preprocessor/plugin/entrypoint/spring/ScannerTest.class</exclude>
+                                <exclude>apidoc/preprocessor/scanner/ScannerIT.class</exclude>
+                                <exclude>apidoc/preprocessor/scanner/ScannerTest.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -158,7 +158,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/plugin/entrypoint/spring/sample"
+                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/scanner/sample"
                                         includeemptydirs="true"/>
                             </target>
                         </configuration>
@@ -189,7 +189,7 @@
                 <configuration>
                     <additionalClasspathElements>
                         <additionalClasspathElement>
-                            ${project.build.directory}/entrypoint-spring-1.0.0-tests.jar
+                            ${project.build.directory}/scanner-1.0.0-tests.jar
                         </additionalClasspathElement>
                     </additionalClasspathElements>
                 </configuration>

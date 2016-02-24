@@ -1,4 +1,4 @@
-package apidoc.preprocessor.plugin.entrypoint.spring;
+package apidoc.preprocessor.scanner;
 
 import java.io.IOException;
 import java.net.URL;

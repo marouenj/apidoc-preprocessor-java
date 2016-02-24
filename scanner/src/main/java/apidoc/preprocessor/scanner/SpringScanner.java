@@ -1,4 +1,4 @@
-package apidoc.preprocessor.plugin.entrypoint.spring;
+package apidoc.preprocessor.scanner;
 
 public class SpringScanner extends Scanner {
 

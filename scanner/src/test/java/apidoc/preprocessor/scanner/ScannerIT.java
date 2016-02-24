@@ -1,4 +1,4 @@
-package apidoc.preprocessor.plugin.entrypoint.spring;
+package apidoc.preprocessor.scanner;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -15,11 +15,11 @@ public class ScannerIT {
     public Object[][] classes() {
         return new Object[][]{
                 {
-                        new String[]{"apidoc.preprocessor.plugin.entrypoint.spring.sample"},
+                        new String[]{"apidoc.preprocessor.scanner.sample"},
                         new TreeSet<String>() {{
-                            add("class apidoc.preprocessor.plugin.entrypoint.spring.sample.ControllerA");
-                            add("class apidoc.preprocessor.plugin.entrypoint.spring.sample.ControllerB");
-                            add("class apidoc.preprocessor.plugin.entrypoint.spring.sample.ControllerC");
+                            add("class apidoc.preprocessor.scanner.sample.ControllerA");
+                            add("class apidoc.preprocessor.scanner.sample.ControllerB");
+                            add("class apidoc.preprocessor.scanner.sample.ControllerC");
                         }}
                 },
         };
