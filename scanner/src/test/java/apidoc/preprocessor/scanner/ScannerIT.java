@@ -13,7 +13,6 @@ import java.util.TreeSet;
 
 public class ScannerIT {
 
-    private static SpringScanner scanner;
     private static Method classes;
 
     @BeforeClass
@@ -101,7 +100,8 @@ public class ScannerIT {
 
     @Test(dataProvider = "classes")
     public void classes(String[] basePackages, Set<String> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        scanner = new SpringScanner();
+        SpringScanner scanner = new SpringScanner();
+
         ScannerIT.classes.invoke(scanner, (Object) basePackages);
         Set<Class<?>> classes = scanner.classes;
 
