@@ -32,6 +32,11 @@ public class SpringScanner extends Scanner {
 
     @Override
     protected Set<Method> endpoints(Set<Method> methods) {
-        return methods;
+        return methods.stream()
+                .filter(method -> {
+                    RequestMapping requestMapping = method.getDeclaredAnnotation(RequestMapping.class);
+                    return requestMapping != null;
+                })
+                .collect(Collectors.toSet());
     }
 }
