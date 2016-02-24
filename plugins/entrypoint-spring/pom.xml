@@ -19,6 +19,11 @@
         <version.jmockit>1.21</version.jmockit>
         <version.mockito>1.10.19</version.mockito>
         <version.slf4j>1.7.14</version.slf4j>
+        <version.maven.compiler>3.1</version.maven.compiler>
+        <version.maven.jar>2.6</version.maven.jar>
+        <version.maven.surefire>2.19</version.maven.surefire>
+        <version.maven.failsafe>2.19</version.maven.failsafe>
+        <version.maven.antrun>1.8</version.maven.antrun>
     </properties>
 
     <dependencies>
@@ -53,11 +58,41 @@
     <build>
         <finalName>entrypoint-spring-${project.version}</finalName>
         <plugins>
-            <!-- compile/test-compile -->
+            <!-- initialize -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- compile, test-compile -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${version.maven.compiler}</version>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -67,26 +102,97 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19</version>
+                <version>${version.maven.surefire}</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <argLine>
                         -javaagent:"${user.home}/.m2/repository/org/jmockit/jmockit/${version.jmockit}/jmockit-${version.jmockit}.jar"
                     </argLine>
                 </configuration>
             </plugin>
-            <!-- integration-test/verify -->
+            <!-- package -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.maven.jar}</version>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>apidoc/preprocessor/plugin/entrypoint/spring/ScannerIT.class</exclude>
+                                <exclude>apidoc/preprocessor/plugin/entrypoint/spring/ScannerTest.class</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- pre-integration-test -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${version.maven.antrun}</version>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <delete dir="${project.build.directory}/test-classes/apidoc/preprocessor/plugin/entrypoint/spring/sample"
+                                        includeemptydirs="true"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- integration-test, verify -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19</version>
+                <version>${version.maven.failsafe}</version>
                 <executions>
                     <execution>
+                        <id>it</id>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+                        <goals>
                             <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>
+                            ${project.build.directory}/entrypoint-spring-1.0.0-tests.jar
+                        </additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
             </plugin>
         </plugins>
     </build>
