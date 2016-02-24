@@ -91,6 +91,8 @@ public class ScannerIT {
                         },
                         new TreeSet<String>() {{
                             add("class apidoc.preprocessor.scanner.sample_b.Controller6");
+                            add("class apidoc.preprocessor.scanner.sample_b.Service1");
+                            add("class apidoc.preprocessor.scanner.sample_b.Service2");
                             add("class apidoc.preprocessor.scanner.sample_a.sample2.Controller4");
                             add("class apidoc.preprocessor.scanner.sample_a.sample2.sample3.Controller5");
                         }}
