@@ -15,6 +15,8 @@ public class SpringScannerIT {
     private static Method classes;
     private static Method controllers;
     private static Method prefix;
+    private static Method methods;
+    private static Method endpoints;
 
     @BeforeClass
     public void init() throws NoSuchMethodException {
@@ -26,6 +28,12 @@ public class SpringScannerIT {
 
         prefix = SpringScanner.class.getDeclaredMethod("prefix", Class.class);
         prefix.setAccessible(true);
+
+        methods = Scanner.class.getDeclaredMethod("methods", Class.class);
+        methods.setAccessible(true);
+
+        endpoints = SpringScanner.class.getDeclaredMethod("endpoints", Set.class);
+        endpoints.setAccessible(true);
     }
 
     @DataProvider(name = "controllers")
@@ -111,6 +119,44 @@ public class SpringScannerIT {
             Assert.assertEquals(actual.length, expect.length);
             for (int j = 0; j < actual.length; j++) {
                 Assert.assertEquals(actual[j], expect[j]);
+            }
+        }
+    }
+
+    @DataProvider(name = "endpoints")
+    public Object[][] endpoints() {
+        return new Object[][]{
+                {
+                        new String[]{"apidoc.preprocessor.scanner.sample_a.sample2"},
+                        new Object[]{
+                                new TreeSet<String>() {{
+                                    add("method1");
+                                }},
+                                new TreeSet<String>() {{
+                                    add("method1");
+                                    add("method2");
+                                }},
+                        }
+                },
+        };
+    }
+
+    @Test(dataProvider = "endpoints")
+    public void endpoints(String[] basePackages, Object[] expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        SpringScanner scanner = new SpringScanner();
+
+        classes.invoke(scanner, (Object) basePackages);
+        controllers.invoke(scanner);
+        Set<Class<?>> classes = scanner.classes;
+        int i = -1;
+        for (Class<?> clazz : classes) {
+            Set<Method> actual = (Set<Method>) methods.invoke(scanner, clazz);
+            actual = (Set<Method>) endpoints.invoke(scanner, actual);
+            Assert.assertNotNull(actual);
+            Set<String> expect = (Set<String>) expected[++i];
+            Assert.assertEquals(actual.size(), expect.size());
+            for (Method method : actual) {
+                Assert.assertTrue(expect.contains(method.getName()));
             }
         }
     }
