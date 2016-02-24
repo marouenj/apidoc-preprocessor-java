@@ -1,5 +1,7 @@
 package apidoc.preprocessor.scanner;
 
+import apidoc.preprocessor.model.Endpoint;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
@@ -22,7 +24,7 @@ public abstract class Scanner {
     private final static Pattern PACKAGE_PATTERN = Pattern.compile("^([^.]+\\.)*[^.]+$");
     private final static Pattern RESOURCE_PATTERN = Pattern.compile("^file:(.*)!(.*)$");
 
-    public abstract Object endpoints(String[] basePackages);
+    public abstract Set<Endpoint> endpoints(String[] basePackages);
 
     public static Set<Class<?>> classes(String[] basePackages) {
         Set<Class<?>> classes = new TreeSet<>((a, b) -> a.toString().compareTo(b.toString()));
