@@ -117,6 +117,7 @@ public abstract class Scanner {
 
     protected void controller(Class<?> controllerClass, String[] prefix) {
         Set<Method> methods = methods(controllerClass);
+        methods = endpoints(methods);
     }
 
     private Set<Method> methods(Class<?> controllerClass) {
@@ -127,4 +128,6 @@ public abstract class Scanner {
 
         return methods;
     }
+
+    protected abstract Set<Method> endpoints(Set<Method> methods);
 }

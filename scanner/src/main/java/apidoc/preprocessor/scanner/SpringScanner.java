@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Method;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SpringScanner extends Scanner {
@@ -26,5 +28,10 @@ public class SpringScanner extends Scanner {
             return new String[]{};
         }
         return requestMapping.value();
+    }
+
+    @Override
+    protected Set<Method> endpoints(Set<Method> methods) {
+        return methods;
     }
 }
