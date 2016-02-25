@@ -1,5 +1,7 @@
 package apidoc.preprocessor.scanner;
 
+import apidoc.preprocessor.model.Endpoint;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -7,6 +9,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,6 +20,7 @@ public class SpringScannerIT {
     private static Method prefix;
     private static Method methods;
     private static Method endpoints;
+    private static Method entryPoint;
 
     @BeforeClass
     public void init() throws NoSuchMethodException {
@@ -34,6 +38,9 @@ public class SpringScannerIT {
 
         endpoints = SpringScanner.class.getDeclaredMethod("endpoints", Set.class);
         endpoints.setAccessible(true);
+
+        entryPoint = Scanner.class.getDeclaredMethod("endpoints", String[].class);
+        entryPoint.setAccessible(true);
     }
 
     @DataProvider(name = "controllers")
@@ -159,5 +166,40 @@ public class SpringScannerIT {
                 Assert.assertTrue(expect.contains(method.getName()));
             }
         }
+    }
+
+    @DataProvider(name = "entrypoint")
+    public Object[][] entrypoint() {
+        return new Object[][]{
+                {
+                        new String[]{"apidoc.preprocessor.scanner.sample_a.sample2"},
+                        new TreeSet<Endpoint>() {{
+                            add(new Endpoint(
+                                    new RequestMethod[]{RequestMethod.GET},
+                                    new String[]{"controller4/path1"},
+                                    new String[]{"method1"})
+                            );
+                            add(new Endpoint(
+                                    new RequestMethod[]{RequestMethod.GET},
+                                    new String[]{"controller5/path1", "controller5/path2"},
+                                    new String[]{"method1"})
+                            );
+                            add(new Endpoint(
+                                    new RequestMethod[]{RequestMethod.GET, RequestMethod.POST},
+                                    new String[]{"controller5/path1", "controller5/path2"},
+                                    new String[]{"method2"})
+                            );
+                        }}
+                },
+        };
+    }
+
+    @Test(dataProvider = "entrypoint")
+    public void entrypoint(String[] basePackages, TreeSet<Endpoint> expected) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        SpringScanner scanner = new SpringScanner();
+
+        TreeSet<Endpoint> actual = (TreeSet<Endpoint>) entryPoint.invoke(scanner, (Object) basePackages);
+        Assert.assertEquals(actual.size(), expected.size());
+        Assert.assertEquals(actual, expected);
     }
 }
