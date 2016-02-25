@@ -124,7 +124,9 @@ public abstract class Scanner {
     }
 
     private Set<Method> methods(Class<?> controllerClass) {
-        Set<Method> methods = new TreeSet<>((a, b) -> { return a.getName().compareTo(b.getName());});
+        Set<Method> methods = new TreeSet<>((a, b) -> {
+            return a.getName().compareTo(b.getName());
+        });
 
         Collections.addAll(methods, controllerClass.getMethods());
         Collections.addAll(methods, controllerClass.getDeclaredMethods());
