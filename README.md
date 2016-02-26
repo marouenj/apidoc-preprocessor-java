@@ -23,3 +23,19 @@ should be input (hardcoded). It can, in a Java context, double as a javadoc desc
 should be generated and if not will cause duplication. Again, in a Java context, Reflection can be leveraged to retrieve the underlying raw data and format it to conform to apidoc.
 
 This (repo) preprocessor targets web services written in Java. It uses a pluggable architecture for the entrypoint. For now, the Spring entrypoint is being worked on. A future candidate may be Jersey, depending on the need and the available resources for this project.
+
+# Architecture
+
+    #############      ############      ##########      ##################      #################      ##########      ########
+    #           #      #          #      #        #      #                #      #               #      #        #      #      #
+    # java code # ---> # scanner* # ---> # model* # ---> # preprocessor** # ---> # docs template # ---> # engine # ---> # docs #
+    #           #      #          #      #        #      #                #      #               #      #        #      #      #
+    #############      ############      ##########      ##################      #################      ##########      ########
+
+(*) are interfaces and are agnostic of the frameworks in the java code
+(**) is also an interface and is agnostic of the apidoc engine
+
+Possible implementations are:
+scanner: SpringScanner, JerseyScanner
+model: SpringModel, JerseyModel
+preprocessor: ApidocPreprocessor, ...
