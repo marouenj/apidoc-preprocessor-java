@@ -32,8 +32,9 @@ This (repo) preprocessor targets web services written in Java. It uses a pluggab
     #           #      #          #      #        #      #                #      #               #      #        #      #      #
     #############      ############      ##########      ##################      #################      ##########      ########
 
-(*) are interfaces and are agnostic of the frameworks in the java code
-(**) is also an interface and is agnostic of the apidoc engine
+** are interfaces and are agnostic of the frameworks in the java code
+
+**** is also an interface and is agnostic of the apidoc engine
 
 Possible implementations are:
 scanner: SpringScanner, JerseyScanner
