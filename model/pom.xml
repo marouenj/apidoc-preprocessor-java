@@ -46,6 +46,12 @@
             <version>${version.mockito}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
