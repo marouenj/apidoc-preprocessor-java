@@ -1,9 +1,14 @@
-# apidoc-preprocessor-java
+# restapi-preprocessor-java
 
-apidoc is a great documentation tool for RESTful web APIs. Unfortunately it doesn't scale: as the number of endpoints grow, keeping an up-to-date snapshot becomes a burden.
+There's a lot of documentation frameworks for Restful web services to choose from: swagger.io, apidocjs.com to name a few. These frameworks are opinionated in that they guide the user by enforcing a format, from which a view of the API layer is generated in HTML.
 
-This burden is due to the overhead of making sure that a change in the code is replicated in the docs. However, for a big part of the docs, the permanent source of truth is (and should be) the source code.
+This short-sighted solution immediately entails the problem of having to deal with two views of the API (at the minimum). The first is the view as represented by the source code while the second is the framework's.
 
+We believe the approach of these frameworks in fundamentally wrong. There should be one source of truth for the API and it should be the source code. Since the latter captures both the specification and implementation of the API layer, extracting the specification is possible. Doing the reverse however is not: generating the source code from, say, a swagger specification will still require the developer to paste the implementation. Doing so every time the specs has changes is not computer science.
+
+However, in order not to reinvent the wheel, we can regard swagger et al as incomplete solutions and prepend it with a preprocessor layer that maps the source code the their respective inputs.
+
+STOPPED HERE
 We can thus split the docs in two categories: hardcoded vs generated
 
 For example:
