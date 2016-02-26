@@ -1,6 +1,6 @@
 <project
-        xmlns="http://maven.apache.org/POM/4.0.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://maven.apache.org/POM/4.0.0"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -14,6 +14,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <version.maven.clean>3.0.0</version.maven.clean>
         <version.maven.compiler>3.1</version.maven.compiler>
         <version.maven.jar>2.6</version.maven.jar>
         <version.maven.surefire>2.19</version.maven.surefire>
@@ -68,7 +69,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${version.maven.clean}</version>
                 <executions>
                     <execution>
                         <phase>initialize</phase>
