@@ -1,6 +1,6 @@
 package apidoc.preprocessor.scanner;
 
-import apidoc.preprocessor.model.Endpoint;
+import apidoc.preprocessor.model.SpringEndpoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +50,6 @@ public class SpringScanner extends Scanner {
             suffix = requestMapping.path();
         }
 
-        ENDPOINTS.add(new Endpoint(requestMapping.method(), prefix, suffix));
+        ENDPOINTS.add(new SpringEndpoint(requestMapping.method(), prefix, suffix));
     }
 }

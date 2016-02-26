@@ -1,6 +1,7 @@
 package apidoc.preprocessor.scanner;
 
 import apidoc.preprocessor.model.Endpoint;
+import apidoc.preprocessor.model.SpringEndpoint;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -173,17 +174,17 @@ public class SpringScannerIT {
                 {
                         new String[]{"apidoc.preprocessor.scanner.sample_a.sample2"},
                         new TreeSet<Endpoint>() {{
-                            add(new Endpoint(
+                            add(new SpringEndpoint(
                                     new RequestMethod[]{RequestMethod.GET},
                                     new String[]{"controller4/path1"},
                                     new String[]{"method1"})
                             );
-                            add(new Endpoint(
+                            add(new SpringEndpoint(
                                     new RequestMethod[]{RequestMethod.GET},
                                     new String[]{"controller5/path1", "controller5/path2"},
                                     new String[]{"method1"})
                             );
-                            add(new Endpoint(
+                            add(new SpringEndpoint(
                                     new RequestMethod[]{RequestMethod.GET, RequestMethod.POST},
                                     new String[]{"controller5/path1", "controller5/path2"},
                                     new String[]{"method2"})
