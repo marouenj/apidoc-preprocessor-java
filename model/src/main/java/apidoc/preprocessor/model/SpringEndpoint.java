@@ -4,13 +4,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Arrays;
 
-public class Endpoint implements Comparable<Endpoint> {
+public class SpringEndpoint implements Endpoint, Comparable<SpringEndpoint> {
 
+    // TODO add id
     private RequestMethod[] methods;
     private String[] prefix;
     private String[] suffix;
 
-    public Endpoint(RequestMethod[] methods, String[] prefix, String[] suffix) {
+    public SpringEndpoint(RequestMethod[] methods, String[] prefix, String[] suffix) {
         this.methods = methods;
         this.prefix = prefix;
         this.suffix = suffix;
@@ -37,10 +38,10 @@ public class Endpoint implements Comparable<Endpoint> {
             return false;
         }
 
-        if (!(obj instanceof Endpoint)) {
+        if (!(obj instanceof SpringEndpoint)) {
             return false;
         }
-        Endpoint that = (Endpoint) obj;
+        SpringEndpoint that = (SpringEndpoint) obj;
 
         if (this.methods.length != that.methods.length) {
             return false;
@@ -82,7 +83,7 @@ public class Endpoint implements Comparable<Endpoint> {
     }
 
     @Override
-    public int compareTo(Endpoint that) {
+    public int compareTo(SpringEndpoint that) {
         int i = this.methods.length - 1;
         int j = that.methods.length - 1;
         while (i > -1 && j > -1) {
