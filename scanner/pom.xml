@@ -56,9 +56,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <groupId>marouenj.apidoc.preprocessor</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
